@@ -38,7 +38,7 @@ public class ServicesObj {
                 .spec(REQ_SPEC)
                 .queryParam("query", city)
                 .when().get()
-                .then().log().ifError()
+                .then().log().all()
                 .extract().jsonPath().getObject("location", LocationPojo.class);
     }
 
