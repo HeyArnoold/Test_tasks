@@ -2,18 +2,31 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankingProductTests extends TestData {
 
+
+
     @DisplayName("Проверяем пополнение баланса и списание средств с баланса дебетовой карты")
     @Test
     void debitCardTest() {
-        debitCard.accountRefill(100);
-        assertEquals(100, debitCard.getBalance());
+        step("Пополняем аккаунт на 100", () -> {
+            debitCard.accountRefill(100);
+        });
 
-        debitCard.cancellation(20);
-        assertEquals(80, debitCard.getBalance());
+        step("Проверяем, что аккаунт пополнен на 100", () -> {
+            assertEquals(100, debitCard.getBalance());
+        });
+
+        step("Списываем с аккаунта 20", () -> {
+            debitCard.cancellation(20);
+        });
+
+        step("Проверяем, что на аккаунте осталось 80", () -> {
+            assertEquals(80, debitCard.getBalance());
+        });
     }
 
     @DisplayName("Проверяем установку процентной ставки и сумму задолжности")
